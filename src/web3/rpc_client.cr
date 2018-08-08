@@ -23,19 +23,11 @@ module Web3
         @@id += 1
         json = response.body_io.gets
         if json.is_a? String
-          begin
             result = ResultT.from_json json
             result.headers = response.headers
             result.protocol_version = response.version
             result.status_code = response.status_code
             return result
-          rescue
-            result = BaseResponse.from_json json
-            result.headers = response.headers
-            result.protocol_version = response.version
-            result.status_code = response.status_code
-            return result
-          end
         end
         nil
       end
